@@ -10,7 +10,10 @@ export default {
     },
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    require("daisyui")
+  ],
   daisyui: {
     themes: ["garden"]
   }

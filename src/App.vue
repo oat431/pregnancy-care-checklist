@@ -45,6 +45,7 @@ const reset = () => {
   waist.value = undefined;
   vgn.value = undefined;
   fts.value = undefined;
+  showError.value = false;
   result.value = "";
   cnt.value = -1;
 };
@@ -213,11 +214,12 @@ const hasCheckedEveryBox = () => {
 
       <div v-if="cnt != -1 && !showError" class="text-center mt-6">
         <h1 class="text-2xl font-bold">ผลการประเมิน</h1>
+        <div class="divider"></div>
         <h1 class="text-2xl font-bold mt-6">{{ result }}</h1>
       </div>
 
       <div v-if="showError" class="text-center mt-6">
-        <h1 class="text-2xl font-bold text-error">โปรดเลือกให้ครบทุกช่อง</h1>
+        <h1 class="text-2xl font-bold text-red-600">โปรดเลือกให้ครบทุกช่อง</h1>
       </div>
     </div>
   </div>
