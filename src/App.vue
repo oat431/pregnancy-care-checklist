@@ -30,12 +30,10 @@ const showResult = () => {
 
   if (cnt.value === 0) {
     result.value = "ไม่มีอาการ";
-  } else if (cnt.value === 1) {
-    result.value = "ดูอาการ";
-  } else if (cnt.value >= 2 && cnt.value <= 3) {
-    result.value = "ดูอาการ และติดต่อเจ้าหน้าที่";
+  } else if (cnt.value >= 1 && cnt.value <= 3) {
+    result.value = "ดูอาการต่ออีกสองชัวโมง ถ้ายังมีอาการอยู่ติดต่อสอบถาม ได้ที่เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802";
   } else if (cnt.value >= 4 && cnt.value <= 5) {
-    result.value = "มาโรงพยาบาลทันที";
+    result.value = "ติดต่อสอบถามที่ เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802 และมาโรงพยาบาลทันที";
   }
 };
 
