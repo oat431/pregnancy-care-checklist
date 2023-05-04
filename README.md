@@ -7,3 +7,7 @@ This is a check list form from Kamphaeng Phet Hospital delivery room department 
 - daisyUI
 - tailwindcss
 - vue3
+
+## Todo
+- make it moblie resonsive
+- connect to google sheet
