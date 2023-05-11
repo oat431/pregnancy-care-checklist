@@ -2,9 +2,9 @@
 import { defineProps } from "vue";
 import { Field, ErrorMessage } from "vee-validate";
 const props = defineProps({
-    no: String,
-    title: String,
-    field: String,
+    no: {type: String, required: true},
+    title: {type: String, required: true},
+    field: {type: String, required: true}
 });
 </script>
 <template>

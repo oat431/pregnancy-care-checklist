@@ -15,7 +15,7 @@ const schema = yup.object({
   fts: yup.string().required("กรุณาเลือกคำตอบ"),
 });
 
-function onSubmit(values: object) {
+function onSubmit(values: { [x: string]: string}) {
   let score = 0;
   for(let key in values) {
     if (values[key] === "true") {
