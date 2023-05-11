@@ -13,7 +13,7 @@ const props = defineProps({
         <td class="px-6 py-3 font-bold">
             <p>{{ props.title }}</p>
             <p>
-                <ErrorMessage class="text-error text-sm" :name="props.field" />
+                <ErrorMessage class="text-red-500 text-sm" :name="props.field" />
             </p>
         </td>
         <td class="px-6 py-3">

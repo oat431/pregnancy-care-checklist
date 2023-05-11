@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 const props = defineProps({
     result: String
+})
+onMounted(() => {
+    window.scrollTo(0, document.body.scrollHeight);
 })
 </script>
 <template>

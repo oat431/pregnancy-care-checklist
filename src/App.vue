@@ -16,7 +16,7 @@ const schema = yup.object({
   fts: yup.string().required("กรุณาเลือกคำตอบ"),
 });
 
-function onSubmit(values: { [x: string]: string }) {
+async function onSubmit(values: { [x: string]: string }) {
   let score = 0;
   for (let key in values) {
     if (values[key] === "true") {
@@ -34,6 +34,7 @@ function onSubmit(values: { [x: string]: string }) {
   }
 }
 function resetValue() {
+  window.scrollTo(0, 0);
   result.value = "";
 }
 </script>
