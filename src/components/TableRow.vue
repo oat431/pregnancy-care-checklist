@@ -9,17 +9,17 @@ const props = defineProps({
 </script>
 <template>
     <tr>
-        <th>{{ props.no }}</th>
-        <td class="font-bold">
+        <th class="px-6 py-3">{{ props.no }}</th>
+        <td class="px-6 py-3 font-bold">
             <p>{{ props.title }}</p>
             <p>
                 <ErrorMessage class="text-error text-sm" :name="props.field" />
             </p>
         </td>
-        <td>
+        <td class="px-6 py-3">
             <Field type="radio" :name="props.field" class="radio" value="true" />
         </td>
-        <td>
+        <td class="px-6 py-3">
             <Field type="radio" :name="props.field" class="radio" value="false" />
         </td>
     </tr>

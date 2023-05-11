@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Form } from "vee-validate";
 import TableRow from "./components/TableRow.vue";
-import TableSubmit from "./components/TableSubmit.vue";
 import Result from "./components/Result.vue";
 import * as yup from "yup";
 import { ref } from "vue";
+import topicData from "./data/topic.json";
 
 const result = ref("");
+const data = ref(topicData);
 const schema = yup.object({
   stomach1: yup.string().required("กรุณาเลือกคำตอบ"),
   stomach2: yup.string().required("กรุณาเลือกคำตอบ"),
@@ -15,9 +16,9 @@ const schema = yup.object({
   fts: yup.string().required("กรุณาเลือกคำตอบ"),
 });
 
-function onSubmit(values: { [x: string]: string}) {
+function onSubmit(values: { [x: string]: string }) {
   let score = 0;
-  for(let key in values) {
+  for (let key in values) {
     if (values[key] === "true") {
       score += 1;
     }
@@ -25,10 +26,15 @@ function onSubmit(values: { [x: string]: string}) {
   if (score === 0) {
     result.value = "ไม่มีอาการ";
   } else if (score >= 1 && score <= 3) {
-    result.value = "ดูอาการต่ออีกสองชัวโมง ถ้ายังมีอาการอยู่ติดต่อสอบถาม ได้ที่เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802";
+    result.value =
+      "ดูอาการต่ออีกสองชัวโมง ถ้ายังมีอาการอยู่ติดต่อสอบถาม ได้ที่เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802";
   } else if (score >= 4 && score <= 5) {
-    result.value = "ติดต่อสอบถามที่ เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802 และมาโรงพยาบาลทันที";
+    result.value =
+      "ติดต่อสอบถามที่ เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802 และมาโรงพยาบาลทันที";
   }
+}
+function resetValue() {
+  result.value = "";
 }
 </script>
 <template>
@@ -38,46 +44,41 @@ function onSubmit(values: { [x: string]: string}) {
         <h1 class="text-2xl font-bold">แบบประเมิน คลอดก่อนกำหนด</h1>
       </div>
       <Form :validation-schema="schema" @submit="onSubmit">
-        <table class="table table-zebra mt-6">
+        <table class="table-zebra mt-6">
           <thead>
-            <tr>
+            <tr class="bg-base-200">
               <th></th>
-              <th class="text-xl">รายการ</th>
-              <th class="text-xl">มี</th>
-              <th class="text-xl">ไม่มี</th>
+              <th class="text-xl px-6 py-3">รายการ</th>
+              <th class="text-xl px-6 py-3">มี</th>
+              <th class="text-xl px-6 py-3">ไม่มี</th>
             </tr>
           </thead>
           <tbody>
-            <TableRow 
-              no="1"
-              title="ปวดท้องหรือมีท้องแข็ง สม่ำเสมออย่างน้อย 4 ครั้งใน 20 นาที"
-              field="stomach1"
+            <TableRow
+              v-for="item in data"
+              :no="item.no"
+              :title="item.title"
+              :field="item.field"
             />
-            <TableRow 
-              no="2"
-              title="ปวดท้องน้อย ปวดหน่วงบริเวณหัวเหน่า คล้ายปวดประจำเดือน"
-              field="stomach2"
-            />
-            <TableRow 
-              no="3"
-              title="มีอาการปวดบริเวณบั้นเอว ปวดปริเวณหลังส่วนล่าง นั่งฟักหรือนอนพักแล้วอาการเหล่านี้ไม่หายไป"
-              field="waist"
-            />
-            <TableRow 
-              no="4"
-              title="มีมูกออกทางช่องคลอด มีลักษณะหนียวหรือตกขาว เป็นเมือกใสหรือมีน้ำไหลคล้ายปัสวะออกทางช่องคลอด"
-              field="vgn"
-            />
-            <TableRow 
-              no="5"
-              title="ลูกดิ้นน้อยลงหรือไม่ดิ้น หรือมีเลือดออกจากช่องคลอด"
-              field="fts"
-            />
-            <TableSubmit />
+            <tr>
+              <th class="px-3 py-2"></th>
+              <td class="px-3 py-2"></td>
+              <td class="px-3 py-2">
+                <button
+                  @click="resetValue"
+                  type="reset"
+                  class="btn btn-outline"
+                >
+                  ล้าง
+                </button>
+              </td>
+              <td class="px-3 py-2">
+                <button class="btn">ดูผล</button>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <ValidationResult />
-        <Result v-if="result.length != 0 " class="my-6" :result="result" />
+        <Result v-if="result.length != 0" class="my-6" :result="result" />
       </Form>
     </div>
   </div>
