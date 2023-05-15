@@ -9,4 +9,4 @@ This is a check list form from Kamphaeng Phet Hospital delivery room department 
 - vue3
 
 ## Todo
-- connect to google sheet
+- connect to google sheet using google workspace api
