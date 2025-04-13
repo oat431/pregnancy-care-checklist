@@ -26,6 +26,10 @@ function isCodeGreen(values: { [x: string]: string }): boolean {
 function isCodeRed(values: { [x: string]: string }): boolean {
   return values.waist === "true" || values.vgn === "true" || values.fts === "true"
 }
+
+function allFalse(values: { [x: string]: string }): boolean {
+  return values.stomach1 === "false" || values.stomach2 === "false" || values.waist === "false" || values.vgn === "false" || values.fts === "false"
+}
 async function onSubmit(values: { [x: string]: string }) {
   console.log(values)
   if(isCodeRed(values)) {
@@ -35,7 +39,7 @@ async function onSubmit(values: { [x: string]: string }) {
     isEmergecy.value = true;
     return
   }
-  if(isCodeGreen(values)) {
+  if(isCodeGreen(values) || allFalse(values)) {
     result.value = "ดูอาการต่ออีกสองชัวโมง ถ้ายังมีอาการอยู่ติดต่อสอบถาม ได้ที่เบอร์โทร ";
     tel.value = "055022000";
     referTo.value = " ต่อ ห้องคลอด 3801 - 3802";
