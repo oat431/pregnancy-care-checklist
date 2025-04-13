@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+import tailwindLineClamp from '@tailwindcss/line-clamp';
+import daisyui from 'daisyui';
+
 export default {
   content: [
     "./index.html",
@@ -11,8 +13,8 @@ export default {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/line-clamp'),
-    require("daisyui")
+    tailwindLineClamp,
+    daisyui
   ],
   daisyui: {
     themes: ["garden"]

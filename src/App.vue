@@ -7,6 +7,9 @@ import { ref } from "vue";
 import topicData from "./data/topic.json";
 
 const result = ref("");
+const tel = ref("");
+const referTo = ref("");
+const isEmergecy = ref(false);
 const data = ref(topicData);
 const schema = yup.object({
   stomach1: yup.string().required("กรุณาเลือกคำตอบ"),
@@ -16,22 +19,33 @@ const schema = yup.object({
   fts: yup.string().required("กรุณาเลือกคำตอบ"),
 });
 
+function isCodeGreen(values: { [x: string]: string }): boolean {
+  return values.stomach1 === "true" || values.stomach2 === "true"
+}
+
+function isCodeRed(values: { [x: string]: string }): boolean {
+  return values.waist === "true" || values.vgn === "true" || values.fts === "true"
+}
 async function onSubmit(values: { [x: string]: string }) {
-  let score = 0;
-  for (let key in values) {
-    if (values[key] === "true") {
-      score += 1;
-    }
+  console.log(values)
+  if(isCodeRed(values)) {
+    result.value = "ติดต่อสอบถามที่ เบอร์โทร ";
+    tel.value = "055022000";
+    referTo.value = " ต่อ ห้องคลอด 3801 - 3802 และมาโรงพยาบาลทันที";
+    isEmergecy.value = true;
+    return
   }
-  if (score === 0) {
-    result.value = "ไม่มีอาการ";
-  } else if (score >= 1 && score <= 3) {
-    result.value =
-      "ดูอาการต่ออีกสองชัวโมง ถ้ายังมีอาการอยู่ติดต่อสอบถาม ได้ที่เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802";
-  } else if (score >= 4 && score <= 5) {
-    result.value =
-      "ติดต่อสอบถามที่ เบอร์โทร 055022000 ต่อ ห้องคลอด 3801 - 3802 และมาโรงพยาบาลทันที";
+  if(isCodeGreen(values)) {
+    result.value = "ดูอาการต่ออีกสองชัวโมง ถ้ายังมีอาการอยู่ติดต่อสอบถาม ได้ที่เบอร์โทร ";
+    tel.value = "055022000";
+    referTo.value = " ต่อ ห้องคลอด 3801 - 3802";
+    isEmergecy.value = false;
+    return
   }
+  console.log(result.value)
+  console.log(tel.value)
+  console.log(referTo.value)
+  console.log(isEmergecy.value)
 }
 function resetValue() {
   window.scrollTo(0, 0);
@@ -79,7 +93,14 @@ function resetValue() {
             </tr>
           </tbody>
         </table>
-        <Result v-if="result.length != 0" class="my-6" :result="result" />
+        <Result 
+          v-if="result.length != 0" 
+          class="my-6" 
+          :result="result" 
+          :tel="tel"
+          :referTo="referTo"
+          :isEmergency="isEmergecy"
+          />
       </Form>
     </div>
   </div>
